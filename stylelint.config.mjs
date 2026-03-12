@@ -1,0 +1,20 @@
+/** @type {import("stylelint").Config} */
+export default {
+  customSyntax: "postcss-styled-syntax",
+  extends: ["stylelint-config-standard"],
+  plugins: ["stylelint-order"],
+  rules: {
+    "alpha-value-notation": "percentage",
+    "hue-degree-notation": "number",
+    "nesting-selector-no-missing-scoping-root": null,
+    "no-empty-source": null,
+    "no-invalid-position-declaration": null,
+    "order/properties-alphabetical-order": true,
+    "value-keyword-case": [
+      "lower",
+      {
+        ignoreKeywords: ["currentColor", "optimizeLegibility"],
+      },
+    ],
+  },
+};
