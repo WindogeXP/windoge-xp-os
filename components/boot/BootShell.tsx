@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useBoot } from "contexts/boot";
+import { osBootAssets } from "config/assets";
+import { preloadAssets } from "utils/preload";
 import BootScreen from "./BootScreen";
 
 type BootShellProps = {
@@ -10,23 +12,34 @@ const BootShell = ({ children }: BootShellProps) => {
   const { state, progress, message, error, setBootState } = useBoot();
 
   useEffect(() => {
-    if (state !== "initializing") return;
+    let cancelled = false;
 
     setBootState("booting");
 
     const t1 = setTimeout(() => {
+      if (cancelled) return;
       setBootState("loading");
     }, 1000);
 
-    const t2 = setTimeout(() => {
+    const preloadPromise = preloadAssets(osBootAssets).catch(() => undefined);
+
+    const fallbackTimeout = setTimeout(() => {
+      if (cancelled) return;
       setBootState("ready");
-    }, 2500);
+    }, 4000);
+
+    preloadPromise.then(() => {
+      if (cancelled) return;
+      clearTimeout(fallbackTimeout);
+      setBootState("ready");
+    });
 
     return () => {
+      cancelled = true;
       clearTimeout(t1);
-      clearTimeout(t2);
+      clearTimeout(fallbackTimeout);
     };
-  }, [state, setBootState]);
+  }, [setBootState]);
 
   if (error) {
     return <div>Boot error: {error.message}</div>;
