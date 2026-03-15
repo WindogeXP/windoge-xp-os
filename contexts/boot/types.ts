@@ -1,10 +1,7 @@
 export type BootState =
-  | "initializing" // App starting - React mounting
-  | "booting" // OS booting - initializing filesystem, services
-  | "loading" // Resources loading - loading user data, apps
-  | "ready" // Ready for login - showing login screen
-  | "authenticated" // Logged in - user authenticated
-  | "desktop"; // At desktop - full OS ready
+  | "SYSTEM_LOADING" // Boot / loading screen
+  | "LOGON" // Login screen
+  | "DESKTOP"; // Full OS / app content
 
 export interface BootContextState {
   state: BootState;

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "./globals.css";
 import Providers from "./Providers";
 
 export const metadata: Metadata = {
@@ -18,24 +19,27 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link
-          rel="preload"
-          href="/fonts/os-ui.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
+        <meta
+          content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, interactive-widget=resizes-content"
+          name="viewport"
         />
-        <link
-          rel="preload"
-          href="/fonts/os-icons.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link rel="preload" href="/images/boot-bg.webp" as="image" />
-        <link rel="preload" href="/images/desktop-wallpaper.webp" as="image" />
+        <link rel="preload" href="/images/bootup/logo.png" as="image" />
+        <link rel="preload" href="/images/bootup/gradient1.png" as="image" />
+        <link rel="preload" href="/images/bootup/gradient2.png" as="image" />
+        <link rel="preload" href="/images/bootup/gradient3.png" as="image" />
       </head>
       <body>
+        <div
+          id="initial-black"
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "#000",
+            zIndex: 9999,
+            pointerEvents: "none",
+          }}
+          aria-hidden="false"
+        />
         <Providers>{children}</Providers>
       </body>
     </html>

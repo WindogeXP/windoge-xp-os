@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { BootContextState, BootState } from "./types";
 import { canTransitionTo } from "./functions";
 
-const INITIAL_STATE: BootState = "initializing";
+const INITIAL_STATE: BootState = "SYSTEM_LOADING";
 
 const useBootContextState = (): BootContextState => {
   const [state, setState] = useState<BootState>(INITIAL_STATE);
