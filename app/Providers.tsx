@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { BootProvider } from "contexts/boot";
 import { ViewportProvider } from "contexts/viewport";
+import { SessionProvider } from "contexts/session";
 import ShellFrame from "components/boot/ShellFrame";
 
 type ProvidersProps = {
@@ -24,7 +25,9 @@ const Providers = ({ children }: ProvidersProps): React.ReactElement => {
   return (
     <ViewportProvider>
       <BootProvider>
-        <ShellFrame>{children}</ShellFrame>
+        <SessionProvider>
+          <ShellFrame>{children}</ShellFrame>
+        </SessionProvider>
       </BootProvider>
     </ViewportProvider>
   );

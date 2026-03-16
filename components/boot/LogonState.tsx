@@ -1,7 +1,9 @@
 "use client";
 
 import styled from "styled-components";
-import { useBoot } from "contexts/boot";
+import { useSession } from "@/contexts/session";
+import { useEffect } from "react";
+import { useBoot } from "@/contexts/boot";
 
 const Container = styled.div`
   align-items: center;
@@ -13,12 +15,19 @@ const Container = styled.div`
 `;
 
 const LogonState = (): React.ReactElement => {
+  const { login, auth } = useSession();
   const { setBootState } = useBoot();
+
+  useEffect(() => {
+    if (auth.identity) {
+      setBootState("DESKTOP");
+    }
+  }, [auth.identity]);
 
   return (
     <Container>
       <p>Login screen placeholder</p>
-      <button type="button" onClick={() => setBootState("DESKTOP")}>
+      <button type="button" onClick={() => login()}>
         Login
       </button>
     </Container>
